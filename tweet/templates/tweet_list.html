@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %} home {% endblock %}
+
+{% block content %}
+<h1 class="text-center text-white mt-4">
+    Tweets
+</h1>
+<a class="btn btn-primary mb-4" href="{% url 'tweet_create'%}">Create Tweet</a>
+
+<div class="container-fluid ">
+
+<div class="row g-3">
+    <div class=" col-3 bg-body-secondary">
+        Left side
+
+    </div>
+
+{% comment %} main content {% endcomment %}
+<div class="col-6 ">
+    {% for tweet in tweets %}
+    <div class="card" style="width: 30rem;">
+  
+  
+  <div class="card-body mb-2">
+    <h4 class="card-title">
+        <a class="text-decoration-none" href="{%url 'profile' tweet.user.id%}">{{tweet.user.username}}</a>
+        </h4>
+    <p>{{tweet.created_at|date:"Y-m-d H:i"}} </p>
+    <p class="card-text">{{tweet.text}}</p>
+    
+      {% if tweet.photo %}
+        <img class="card-img-top mb-2" src="{{ tweet.photo.url }}" alt="Tweet photo">
+    {% else %}
+        <p>No photo uploaded</p>
+    {% endif %}
+
+    {% if tweet.user == user %}
+    <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+     {% endif %}
+  </div>
+</div>
+    
+    {% endfor %}
+</div>
+
+{% comment %} right side {% endcomment %}
+
+<div class="col-3 bg-light p-3">
+    <h3>Your Contact</h3>
+    <ol>
+        <li>name1</li>
+        <li>naem2</li>
+    </ol>
+
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

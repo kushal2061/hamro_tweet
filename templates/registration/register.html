@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container m-3">
+  <div class="card border-0 shadow-sm rounded-4 mx-auto" style="max-width: 400px;">
+    <div class="card-body">
+      <h2 class="mb-4 text-center">Register</h2>
+
+      
+<form action="" method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+          <div class="row mb-3">
+          <div class="col-4 d-flex align-items-center">
+            <label for="id_username" class="fw-bold">First Name</label>
+          </div>
+          <div class="col-8">
+            {{ form.first_name }}
+            {{ form.username.errors }}
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-4 d-flex align-items-center">
+            <label for="id_username" class="fw-bold">Last Name</label>
+          </div>
+          <div class="col-8">
+            {{ form.last_name }}
+            {{ form.username.errors }}
+          </div>
+        </div>
+
+
+        <div class="row mb-3">
+          <div class="col-4 d-flex align-items-center">
+            <label for="id_username" class="fw-bold">Username</label>
+          </div>
+          <div class="col-8">
+            {{ form.username }}
+            {{ form.username.errors }}
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4 d-flex align-items-center">
+            <label for="id_email" class="fw-bold">Email</label>
+          </div>
+          <div class="col-8">
+            {{ form.email }}
+            {{ form.email.errors }}
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4 d-flex align-items-center">
+            <label for="id_password1" class="fw-bold">Password</label>
+          </div>
+          <div class="col-8">
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4 d-flex align-items-center">
+            <label for="id_password2" class="fw-bold">C.password</label>
+          </div>
+          <div class="col-8">
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+          </div>
+        </div>
+
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </form>
+
+      <p class="mt-3 text-center">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

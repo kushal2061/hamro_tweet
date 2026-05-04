@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <title>
+      {% block title %}
+        layout
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary-subtle border border-bottom-2 border-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'tweet_list' %}">Hamro Tweet</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" aria-current="page" href="{% url 'tweet_list' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{%url "tweet_create" %}">Tweet</a>
+            </li>
+
+        
+          </ul>
+          
+          <form class="d-flex" method="POST" action="{% url 'search_tweet' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" name="data" placeholder="Search tweets..." />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+
+          {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-danger m-3" type="submit">logout</button>
+            </form>
+
+            <a href="{% url 'myprofile' %}" class="btn p-0 border-0 rounded-circle overflow-hidden" style="width:50px; height:50px;"><img src="{{ user.profile.p_img.url }}" class="w-100 h-100 object-fit-cover" alt="profile" /></a>
+          {% else %}
+            <a class="btn btn-primary m-3" href="{% url 'register' %}">Register</a>
+            <a class="btn btn-primary m-3" href="{% url 'login' %}">Login</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeo5sPZfFhtxXfHf18Jtkv9epU7h6IpTvXec0wt5m0J1aC3R" crossorigin="anonymous"></script>
+  </body>
+</html>
